@@ -1,4 +1,6 @@
 # Python-AI-Personalized-Virtual-Assistant-Project-with-Audio-Integration
+from Utility import check_internet, print_default_error_message
+check_internet()
 
 import speech_recognition as sr
 import pyttsx3
@@ -19,9 +21,12 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
 def talk(text):
-    """Function to convert text to speech and speak it."""
-    engine.say(text)
-    engine.runAndWait()
+    try:
+        """Function to convert text to speech and speak it."""
+        engine.say(text)
+        engine.runAndWait()
+    except Exception as e:
+        print_default_error_message(e)
 
 def take_command():
     """Function to listen for commands via microphone and recognize speech."""
@@ -38,37 +43,40 @@ def take_command():
                 print('User: ', command)
     except Exception as e:
         # Print any errors that occur during speech recognition
-        print(f"Error recognizing voice: {e}")
+        print_default_error_message(e)
     return command
 
 
 def run_alexa():
-    """Function to execute commands based on recognized speech."""
-    command = take_command()
-    print(command)
-    if 'play' in command:
-        # Play a song on YouTube
-        song = command.replace('play', '')
-        talk('playing ' + song)
-        pywhatkit.playonyt(song)
-    elif 'time' in command:
-        # Get and speak the current time
-        time = datetime.datetime.now().strftime('%I:%M %p')
-        talk('Current time is ' + time)
-    elif 'tell me about' in command:
-        # Get and speak information from Wikipedia about a person
-        person = command.replace('tell me about', '')
-        info = wikipedia.summary(person, 1)
-        print(info)
-        talk(info)
-    elif 'joke' in command:
-        # Tell a joke
-        talk(pyjokes.get_joke())
-    elif 'stop' in command:
-        # Stop the program when 'stop' command is recognized
-        print('stopping the program')
-        sys.exit()
-    else:
-        # Ask user to repeat the command if none of the recognized commands are found
-        askGemini(command)
-        talk('Please say the command again.')
+    try:
+        """Function to execute commands based on recognized speech."""
+        command = take_command()
+        print(command)
+        if 'play' in command:
+            # Play a song on YouTube
+            song = command.replace('play', '')
+            talk('playing ' + song)
+            pywhatkit.playonyt(song)
+        elif 'time' in command:
+            # Get and speak the current time
+            time = datetime.datetime.now().strftime('%I:%M %p')
+            talk('Current time is ' + time)
+        elif 'tell me about' in command:
+            # Get and speak information from Wikipedia about a person
+            person = command.replace('tell me about', '')
+            info = wikipedia.summary(person, 1)
+            print(info)
+            talk(info)
+        elif 'joke' in command:
+            # Tell a joke
+            talk(pyjokes.get_joke())
+        elif 'stop' in command:
+            # Stop the program when 'stop' command is recognized
+            print('stopping the program')
+            sys.exit()
+        else:
+            # Ask user to repeat the command if none of the recognized commands are found
+            askGemini(command)
+            talk('Please say the command again.')
+    except Exception as e:
+        print_default_error_message(e)

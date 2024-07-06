@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from Utility import print_default_error_message
 import google.generativeai as genai
 
 # Load the environment variables from the .env file
@@ -16,7 +17,7 @@ def askGemini(prompt):
             print(response.text)
     except Exception as e:
         # Handle any other exceptions
-        print(f'An unexpected error occurred: {e}')
+        print_default_error_message(e)
 
 '''
 More features: https://github.com/google-gemini/cookbook/blob/main/quickstarts/Prompting.ipynb
