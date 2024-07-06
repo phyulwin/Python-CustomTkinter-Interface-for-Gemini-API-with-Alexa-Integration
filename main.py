@@ -8,6 +8,8 @@ import wikipedia
 import pyjokes
 import sys
 
+from gemini import askGemini
+
 # Initialize the speech recognizer
 listener = sr.Recognizer()
 
@@ -35,7 +37,7 @@ def take_command():
             if 'alexa' in command:
                 # Remove 'alexa' from the command if present
                 command = command.replace('alexa', '')
-                print(command)
+                print('User: ', command)
     except Exception as e:
         # Print any errors that occur during speech recognition
         print(f"Error recognizing voice: {e}")
@@ -70,6 +72,7 @@ def run_alexa():
         sys.exit()
     else:
         # Ask user to repeat the command if none of the recognized commands are found
+        askGemini(command)
         talk('Please say the command again.')
 
 
