@@ -10,12 +10,14 @@ genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 def askGemini(prompt):
-    if(len(prompt)!=0):
-        response = model.generate_content(prompt)
-        print(response.text)
-
-
+    try:
+        if(len(prompt)!=0):
+            response = model.generate_content(prompt)
+            print(response.text)
+    except Exception as e:
+        # Handle any other exceptions
+        print(f'An unexpected error occurred: {e}')
 
 '''
-more features: https://github.com/google-gemini/cookbook/blob/main/quickstarts/Prompting.ipynb
+More features: https://github.com/google-gemini/cookbook/blob/main/quickstarts/Prompting.ipynb
 '''

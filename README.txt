@@ -1,0 +1,1 @@
+Thank you for checking my project, and I hope you're doing well! Just a quick note—if the API service we're using stops, the program should automatically switch to a fallback mode. This will ensure that core functionalities continue to work using cached data or alternative sources. You might notice some limited features, and there will be messages to inform users about it.
