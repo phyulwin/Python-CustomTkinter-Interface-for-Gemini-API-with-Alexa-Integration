@@ -1,9 +1,10 @@
+
 from tkinter import *
 import customtkinter
 
 from Utility import print_default_error_message, copy_to_clipboard, exit_program
 from gemini import askGemini
-
+from alexa import talk, take_command
 '''
 Set up environment variables
 '''
@@ -45,7 +46,7 @@ def request_response():
         if len(prompt) != 0:
             # ask gemini and display output
             response = askGemini(prompt)
-            RESPONSE = response
+            # RESPONSE = response #TODO
             return_response(response)
     except Exception as e:
         print_default_error_message(e)
@@ -54,7 +55,18 @@ def copy_response():
     copy_to_clipboard(RESPONSE) #TODO - NOT PROPERLY WORKING
 
 def voice_input():
-    pass #TODO
+    talk("detecting sound input")
+    command = take_command()
+    # prompt_input_frame.insert(0, command)
+    try:
+        if len(command) != 0:
+            # ask gemini and display output
+            response = askGemini(command)
+            # RESPONSE = response #TODO
+            return_response(response)
+            talk(response) #TODO - FIX PROGRAM NOT RESPONDING HERE
+    except Exception as e:
+        print_default_error_message(e)
 
 def clear_text():
     '''
