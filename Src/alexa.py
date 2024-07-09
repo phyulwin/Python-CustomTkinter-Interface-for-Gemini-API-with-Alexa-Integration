@@ -46,6 +46,8 @@ def take_command():
         print_default_error_message(e)
     return command
 
+def greet():
+    talk('Hi! What can I do for you?')
 
 def run_alexa():
     try:
