@@ -36,3 +36,9 @@ def your_function():
 
 def copy_to_clipboard(text):
     pyperclip.copy(text)
+
+def exit_program():
+    '''
+    Ends the program
+    '''
+    sys.exit()
