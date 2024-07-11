@@ -42,3 +42,4 @@ def exit_program():
     Ends the program
     '''
     sys.exit()
+

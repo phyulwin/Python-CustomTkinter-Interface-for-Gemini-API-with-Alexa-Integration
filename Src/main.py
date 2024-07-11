@@ -1,18 +1,19 @@
-# Python-AI-Personalized-Virtual-Assistant-Project-with-Audio-Integration
+import customtkinter
+from Application import Application
+from Utility import print_default_error_message
 
-from voice_changer import voice_changer
-from alexa import greet
-# from alexa import run_alexa
 
 def main():
     try:
-        greet()
-        # voice_changer()
-        # # Main loop to continuously run the virtual assistant
-        # while True:
-        #     run_alexa()
+        root = customtkinter.CTk()
+        app = Application(root)
+        try:
+            root.mainloop()
+        except Exception as e:
+            print_default_error_message(e)
     except KeyboardInterrupt:
         print("\nProgram interrupted. Exiting...")
+
 
 if __name__ == '__main__':
     main()
