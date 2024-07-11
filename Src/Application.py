@@ -14,7 +14,7 @@ class Application:
 
     def setup_ui(self):
         customtkinter.set_appearance_mode("light")
-        customtkinter.set_default_color_theme("dark-blue")
+        customtkinter.set_default_color_theme("Assets/application_theme.json")
 
         self.root.geometry("1262x710")
         self.root.title("Python CustomTkinter Interface for Gemini API with Alexa Integration")
@@ -35,16 +35,17 @@ class Application:
         self.root.bind("<Configure>", bg_resizer)
         # Background added!
 
-        self.prompt_input_frame = customtkinter.CTkEntry(master=self.root, placeholder_text="enter prompt here",
-                                                        width=200, height=150)
+        # Set prompt input textbox and response output label
+        self.prompt_input_frame = customtkinter.CTkTextbox(master=self.root, width=200, height=150)
         self.prompt_input_frame.pack(pady=12, padx=10)
 
         self.prompt_output_frame = customtkinter.CTkLabel(master=self.root, text="display output here", font=("Roboto", 11),
                                                           fg_color="transparent")
         self.prompt_output_frame.pack(pady=12, padx=10)
 
-        self.current_response = ""
+        self.current_response = "" #global
 
+        # Set buttons
         enter_prompt_btn = customtkinter.CTkButton(master=self.root, text="enter prompt", command=self.request_response)
         enter_prompt_btn.pack(pady=12, padx=10)
 
@@ -62,7 +63,7 @@ class Application:
 
     def request_response(self):
         try:
-            prompt = self.prompt_input_frame.get()
+            prompt = self.prompt_input_frame.get(0.0, 'end')
             if prompt:  # Check if prompt is not empty
                 response = askGemini(prompt)
                 self.current_response = response
@@ -77,7 +78,7 @@ class Application:
         self.clear_text()
         talk("detecting sound input")
         command = take_command()
-        self.prompt_input_frame.insert(0, command)
+        self.prompt_input_frame.insert(0.0, command)
         self.root.after(100, lambda: self.voice_output(command))
 
     def voice_output(self, command):
@@ -91,7 +92,7 @@ class Application:
             print_default_error_message(e)
 
     def clear_text(self):
-        self.prompt_input_frame.delete(0, tk.END)
+        self.prompt_input_frame.delete(0.0, tk.END)
 
     def return_response(self, new_text):
         self.prompt_output_frame.configure(text=new_text)
