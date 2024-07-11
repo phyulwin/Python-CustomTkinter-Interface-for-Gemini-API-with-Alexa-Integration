@@ -91,6 +91,5 @@ def voice_changer_inputfile(filename, octaves, speed):
     tone_changed.export("Assets/wav_files/tone_changed_audio.wav", format="wav")
 
 '''
-current goal is to change the tone and pitch of the alexa voice output
-getting FFmpeg errors
+getting FFmpeg errors - ignore this file for now
 '''

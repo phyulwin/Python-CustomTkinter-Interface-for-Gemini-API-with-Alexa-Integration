@@ -1,5 +1,7 @@
 import tkinter as tk
 import customtkinter
+from PIL import ImageTk, Image
+
 from Utility import print_default_error_message, copy_to_clipboard, exit_program
 from gemini import askGemini
 from alexa import talk, take_command
@@ -14,6 +16,7 @@ class Application:
         customtkinter.set_default_color_theme("dark-blue")
 
         self.root.geometry("960x540")
+        self.root.title("Python CustomTkinter Interface for Gemini API with Alexa Integration")
 
         frame = customtkinter.CTkFrame(master=self.root)
         frame.pack(pady=20, padx=60, fill="both", expand=True)
