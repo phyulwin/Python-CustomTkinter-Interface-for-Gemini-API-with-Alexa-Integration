@@ -19,6 +19,7 @@ This application provides a Custom Tkinter GUI interface for interacting with th
 - New Prompt
 
 ## Screenshots
+![Demo Video](https://youtu.be/GMWnnbfZwR4)
 ![Screenshot](https://github.com/phyulwin/Python-CustomTkinter-Interface-for-Gemini-API-with-Alexa-Integration/blob/master/Assets/Screenshot%20(1488).png)
 ![Screenshot](https://github.com/phyulwin/Python-CustomTkinter-Interface-for-Gemini-API-with-Alexa-Integration/blob/master/Assets/Screenshot%20(1489).png)
 
