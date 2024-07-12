@@ -34,7 +34,7 @@ class Application:
         self.root.title("Python CustomTkinter Interface for Gemini API with Alexa Integration")
 
         # Configure app background
-        image = PIL.Image.open("Assets/application_background.png")
+        image = PIL.Image.open("Assets/application_bg.png")
         background_image = customtkinter.CTkImage(image, size=(1262, 710))
 
         def bg_resizer(e):
@@ -50,7 +50,7 @@ class Application:
         # Background added!
 
         # Set prompt input textbox and response output label
-        self.prompt_input_frame = customtkinter.CTkTextbox(master=self.root, width=self.WIDTH, height=100)
+        self.prompt_input_frame = customtkinter.CTkTextbox(master=self.root, width=self.WIDTH, height=150)
         self.prompt_input_frame.place(y=400, x=50)
 
         self.prompt_output_frame = customtkinter.CTkTextbox(master=self.root, width=self.WIDTH, height=300,
@@ -60,9 +60,9 @@ class Application:
         self.current_response = ""  # global string object
 
         # Set buttons
-        btn_pos_y = 500
+        btn_pos_y = 600
         btn_pos_x = 50
-        btn_spacing = 170  # width = 150, width + extra spacing
+        btn_spacing = 200  # width = 150, width + extra spacing
 
         enter_prompt_btn = customtkinter.CTkButton(master=self.root, text="enter prompt", command=self.request_response)
         enter_prompt_btn.place(y=btn_pos_y, x=btn_pos_x)

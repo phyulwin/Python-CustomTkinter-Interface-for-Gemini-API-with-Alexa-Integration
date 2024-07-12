@@ -13,8 +13,8 @@
     "border_color": "transparent"
   },
   "CTkButton": {
-    "height": 50,
-    "width": 150,
+    "height": 100,
+    "width": 200,
     "border_width": 2,
     "border_color": "white",
     "corner_radius": 50,
@@ -141,17 +141,17 @@
   "CTkFont": {
     "macOS": {
       "family": "SF Display",
-      "size": 13,
+      "size": 20,
       "weight": "normal"
     },
     "Windows": {
       "family": "Roboto",
-      "size": 13,
+      "size": 20,
       "weight": "normal"
     },
     "Linux": {
       "family": "Roboto",
-      "size": 13,
+      "size": 20,
       "weight": "normal"
     }
   }
