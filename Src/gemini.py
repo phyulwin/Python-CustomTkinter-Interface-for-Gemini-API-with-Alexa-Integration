@@ -1,3 +1,7 @@
+'''
+IGNORE THIS FILE
+'''
+
 import os
 import google.generativeai as genai
 
@@ -12,6 +16,7 @@ genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 def set_user_api_key(new_key):
+    global model
     genai.configure(api_key=new_key)
     model = genai.GenerativeModel('gemini-1.5-flash')
 
@@ -22,12 +27,11 @@ def askGemini(prompt):
     try:
         if(len(prompt)!=0):
             response = model.generate_content(prompt)
-            # print(response.text)
             return response.text
     except Exception as e:
         # Handle any other exceptions
         print_default_error_message(e)
-        return ''
+        return e
 
 '''
 More features: https://github.com/google-gemini/cookbook/blob/main/quickstarts/Prompting.ipynb

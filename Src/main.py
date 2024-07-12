@@ -6,11 +6,8 @@ def main():
     try:
         root = customtkinter.CTk()
         app = Application(root)
-        try:
-            root.mainloop()
-        except Exception as e:
-            print_default_error_message(e)
-    except KeyboardInterrupt:
+        root.mainloop()
+    except Exception as e:
         print("\nProgram interrupted. Exiting...")
 
 

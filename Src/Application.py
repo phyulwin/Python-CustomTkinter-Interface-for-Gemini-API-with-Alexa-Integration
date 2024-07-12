@@ -1,18 +1,31 @@
+import sys
 import tkinter as tk
 import customtkinter
 import PIL
-from PIL import Image, ImageTk
+from PIL import Image
 
 from Utility import print_default_error_message, copy_to_clipboard, exit_program
-from gemini import askGemini
+from Gemini_api import GeminiAPI
 from alexa import talk, take_command
 
 class Application:
     def __init__(self, root):
         self.root = root
+        self.gemini_api = GeminiAPI()
         self.setup_ui()
 
     def setup_ui(self):
+        dialog = customtkinter.CTkInputDialog(text="Type in your Gemini API key: ",
+                                              title="Configure Gemini API Key")
+        user_api_key = dialog.get_input()  # waits for input
+        try:
+            if user_api_key:
+                self.gemini_api.set_api_key(user_api_key)
+        except Exception as e:
+            print("Invalid API key. Please try again.")
+            print_default_error_message(e)
+            sys.exit()
+
         customtkinter.set_appearance_mode("light")
         customtkinter.set_default_color_theme("Assets/application_theme.json")
 
@@ -39,11 +52,11 @@ class Application:
         self.prompt_input_frame = customtkinter.CTkTextbox(master=self.root, width=200, height=150)
         self.prompt_input_frame.pack(pady=12, padx=10)
 
-        self.prompt_output_frame = customtkinter.CTkLabel(master=self.root, text="display output here", font=("Roboto", 11),
-                                                          fg_color="transparent")
+        self.prompt_output_frame = customtkinter.CTkTextbox(master=self.root, width=200, height=250,
+                                                            state="disabled")
         self.prompt_output_frame.pack(pady=12, padx=10)
 
-        self.current_response = "" #global
+        self.current_response = ""  # global string object
 
         # Set buttons
         enter_prompt_btn = customtkinter.CTkButton(master=self.root, text="enter prompt", command=self.request_response)
@@ -65,9 +78,8 @@ class Application:
         try:
             prompt = self.prompt_input_frame.get(0.0, 'end')
             if prompt:  # Check if prompt is not empty
-                response = askGemini(prompt)
-                self.current_response = response
-                self.return_response(response)
+                self.current_response = self.gemini_api.ask_gemini(prompt)
+                self.return_response(self.current_response)
         except Exception as e:
             print_default_error_message(e)
 
@@ -78,16 +90,16 @@ class Application:
         self.clear_text()
         talk("detecting sound input")
         command = take_command()
+        # display user command in text box
         self.prompt_input_frame.insert(0.0, command)
         self.root.after(100, lambda: self.voice_output(command))
 
-    def voice_output(self, command):
+    def voice_output(self, prompt):
         try:
-            if command:  # Check if command is not empty
-                response = askGemini(command)
-                self.current_response = response
-                talk(response)
-                self.return_response(response)
+            if prompt:  # Check if command is not empty
+                self.current_response = self.gemini_api.ask_gemini(prompt)
+                talk(self.current_response)
+                self.return_response(self.current_response)
         except Exception as e:
             print_default_error_message(e)
 
@@ -95,12 +107,10 @@ class Application:
         self.prompt_input_frame.delete(0.0, tk.END)
 
     def return_response(self, new_text):
-        self.prompt_output_frame.configure(text=new_text)
-
-# if __name__ == "__main__":
-#     root = customtkinter.CTk()
-#     app = Application(root)
-#     try:
-#         root.mainloop()
-#     except Exception as e:
-#         print_default_error_message(e)
+        self.prompt_output_frame.configure(state="normal")
+        # delete current response
+        if len(self.current_response) != 0:
+            self.prompt_output_frame.delete(0.0, tk.END)
+        # paste new text
+        self.prompt_output_frame.insert(0.0, new_text)
+        self.prompt_output_frame.configure(state="disabled")

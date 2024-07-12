@@ -16,7 +16,7 @@
     "height": 50,
     "width": 150,
     "border_width": 2,
-    "border_color": "transparent",
+    "border_color": "white",
     "corner_radius": 50,
     "fg_color": "transparent",
     "bg_color": "transparent",
