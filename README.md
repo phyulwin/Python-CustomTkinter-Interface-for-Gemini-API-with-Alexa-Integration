@@ -20,7 +20,7 @@ This application provides a Custom Tkinter GUI interface for interacting with th
 
 ## Screenshots
 ![Screenshot](https://github.com/phyulwin/Python-CustomTkinter-Interface-for-Gemini-API-with-Alexa-Integration/blob/master/Assets/Screenshot%20(1488).png)
-![Screenshot](https://github.com/phyulwin/Python-CustomTkinter-Interface-for-Gemini-API-with-Alexa-Integration/blob/master/Assets/Screenshot%20(1488).png)
+![Screenshot](https://github.com/phyulwin/Python-CustomTkinter-Interface-for-Gemini-API-with-Alexa-Integration/blob/master/Assets/Screenshot%20(1489).png)
 
 ## Installation
 Clone the repository. Create and activate a virtual environment. Install the required libraries: ```pip install -r requirements.txt```
