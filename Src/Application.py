@@ -1,4 +1,3 @@
-import sys
 import tkinter as tk
 import customtkinter
 import PIL
@@ -9,6 +8,9 @@ from Gemini_api import GeminiAPI
 from alexa import talk, take_command
 
 class Application:
+    # static variables
+    WIDTH = 1100 # textbox width
+
     def __init__(self, root):
         self.root = root
         self.gemini_api = GeminiAPI()
@@ -22,9 +24,8 @@ class Application:
             if user_api_key:
                 self.gemini_api.set_api_key(user_api_key)
         except Exception as e:
-            print("Invalid API key. Please try again.")
             print_default_error_message(e)
-            sys.exit()
+            print("Invalid API key. Please try again.")
 
         customtkinter.set_appearance_mode("light")
         customtkinter.set_default_color_theme("Assets/application_theme.json")
@@ -49,30 +50,38 @@ class Application:
         # Background added!
 
         # Set prompt input textbox and response output label
-        self.prompt_input_frame = customtkinter.CTkTextbox(master=self.root, width=200, height=150)
-        self.prompt_input_frame.pack(pady=12, padx=10)
+        self.prompt_input_frame = customtkinter.CTkTextbox(master=self.root, width=self.WIDTH, height=100)
+        self.prompt_input_frame.place(y=400, x=50)
 
-        self.prompt_output_frame = customtkinter.CTkTextbox(master=self.root, width=200, height=250,
+        self.prompt_output_frame = customtkinter.CTkTextbox(master=self.root, width=self.WIDTH, height=300,
                                                             state="disabled")
-        self.prompt_output_frame.pack(pady=12, padx=10)
+        self.prompt_output_frame.place(y=50, x=50)
 
         self.current_response = ""  # global string object
 
         # Set buttons
+        btn_pos_y = 500
+        btn_pos_x = 50
+        btn_spacing = 170  # width = 150, width + extra spacing
+
         enter_prompt_btn = customtkinter.CTkButton(master=self.root, text="enter prompt", command=self.request_response)
-        enter_prompt_btn.pack(pady=12, padx=10)
+        enter_prompt_btn.place(y=btn_pos_y, x=btn_pos_x)
 
+        btn_pos_x += btn_spacing
         copy_output_btn = customtkinter.CTkButton(master=self.root, text="copy output", command=self.copy_response)
-        copy_output_btn.pack(pady=12, padx=10)
+        copy_output_btn.place(y=btn_pos_y, x=btn_pos_x)
 
+        btn_pos_x += btn_spacing
         voice_input_btn = customtkinter.CTkButton(master=self.root, text="voice input", command=self.voice_input)
-        voice_input_btn.pack(pady=12, padx=10)
+        voice_input_btn.place(y=btn_pos_y, x=btn_pos_x)
 
+        btn_pos_x += btn_spacing
         exit_btn = customtkinter.CTkButton(master=self.root, text="exit program", command=exit_program)
-        exit_btn.pack(pady=12, padx=10)
+        exit_btn.place(y=btn_pos_y, x=btn_pos_x)
 
+        btn_pos_x += btn_spacing
         clear_text_btn = customtkinter.CTkButton(master=self.root, text="new prompt", command=self.clear_text)
-        clear_text_btn.pack(pady=12, padx=10)
+        clear_text_btn.place(y=btn_pos_y, x=btn_pos_x)
 
     def request_response(self):
         try:
